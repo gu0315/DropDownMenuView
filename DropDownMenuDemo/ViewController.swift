@@ -11,8 +11,8 @@ import UIKit
 class ViewController: UIViewController,DMenuViewDelegate,DMenuViewDataSource {
   var menu:DropDownMenuView!
   var sorts = ["综合排序","直播榜","好评榜","新上线"]
-  var movices = [["速度与激情1","速度与激情2","速度与激情3","速度与激情4"],["赌王"],["极限特工1","极限特工2","极限特工3","极限特工4"],["霸王别姬"]]
-  var areas = [["华语","速度与激情1","速度与激情2","速度与激情3","速度与激情4"],["香港地区","李小龙1","李小龙2","李小龙3",],["美国","极限特工1","极限特工2","极限特工3","极限特工4"],["欧洲","极限特工1","极限特工2","极限特工3","极限特工4"],["韩国","极限特工1","极限特工2","极限特工3","极限特工4"],["日本","苍老师1","苍老师2","苍老师3","苍老师4","苍老师1","苍老师2","苍老师3","苍老师4","苍老师1","苍老师2","苍老师3","苍老师4","苍老师1","苍老师2","苍老师3","苍老师4","苍老师1","苍老师2","苍老师3","苍老师4","苍老师1","苍老师2","苍老师3","苍老师4"]]
+  var movices: [(String,String,[String])] = [("排行","385",["排行","销量","好评","距离","人气"]),("电影","12",["电影","速度与激情1","李小龙","肖生克的救赎","极限特工"]),("酒店","128",["酒店","四季","如家","皇家酒店"]),("地区","789",["地区","安徽","南京","合肥"])]
+  var areas = [["华语","敢死队1","敢死队2","敢死队3","敢死队4","敢死队1","敢死队2","敢死队3","敢死队4"],["香港地区","李小龙1","李小龙2","李小龙3","李小龙1","李小龙2","李小龙3"],["美国","极限特工1","极限特工2","极限特工3","极限特工4"],["欧洲","极限特工1","极限特工2","极限特工3","极限特工4","极限特工1","极限特工2","极限特工3","极限特工4"],["韩国","极限特工1","极限特工2","极限特工3","极限特工4"],["日本","苍老师1","苍老师2","苍老师3","苍老师4","苍老师1","苍老师2","苍老师3","苍老师4","苍老师1","苍老师2","苍老师3","苍老师4","苍老师1","苍老师2","苍老师3","苍老师4","苍老师1","苍老师2","苍老师3","苍老师4","苍老师1","苍老师2","苍老师3","苍老师4"]]
   var years = ["2020","2019","2018","2017","2016","2015"]
   override func viewDidLoad() {
       super.viewDidLoad()
@@ -71,7 +71,7 @@ class ViewController: UIViewController,DMenuViewDelegate,DMenuViewDataSource {
       case 1:
         return DMRowData.init(titleStr: years[row])
       case 2:
-        return DMRowData.init(titleStr: movices[row].first ?? "")
+        return DMRowData.init(titleStr: movices[row].2.first ?? "", fileNum: movices[row].1 , imgIcon: movices[row].0 )
       case 3:
         return DMRowData.init(titleStr: areas[row].first ?? "")
       default:
@@ -81,7 +81,7 @@ class ViewController: UIViewController,DMenuViewDelegate,DMenuViewDataSource {
 
    func titleForRightRowAtIndexPath(menu: DropDownMenuView, column: Int, leftRow: Int, rightRow: Int) -> DMRowData {
         if column == 2 {
-           return DMRowData.init(titleStr: movices[leftRow][rightRow])
+           return DMRowData.init(titleStr: movices[leftRow].2[rightRow] )
         } else if column == 3 {
            return DMRowData.init(titleStr: areas[leftRow][rightRow])
         }
@@ -121,7 +121,7 @@ class ViewController: UIViewController,DMenuViewDelegate,DMenuViewDataSource {
   func numberOfRightItemInMenu(menu: DropDownMenuView, column: Int, row: Int) -> Int {
      if column == 2 {
         if movices.count > row {
-           return movices[row].count
+           return movices[row].2.count
         } else {
            return 0
         }

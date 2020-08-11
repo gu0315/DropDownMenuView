@@ -20,15 +20,21 @@ let kScreenHight = UIScreen.main.bounds.height
 public class DMRowData:NSObject {
     ///标题
     var titleStr:String?
-    ///ID
-    var fileID:String?
+    ///fileNum
+    var fileNum:String?
     ///图标名称
     var imgIcon:String?
 
-    init(titleStr: String, fileID: String = "", imgIcon: String = "") {
+    init(titleStr: String, fileNum: String = "", imgIcon: String = "") {
         self.titleStr = titleStr
-        self.fileID = fileID
+        self.fileNum = fileNum
         self.imgIcon = imgIcon
+    }
+
+    init(rowData: DMRowData) {
+        self.titleStr = rowData.titleStr
+        self.fileNum = rowData.fileNum
+        self.imgIcon = rowData.imgIcon
     }
 }
 
@@ -145,8 +151,8 @@ public class DropDownMenuView: UIView,UITableViewDelegate,UITableViewDataSource,
         let tableView = UITableView.init(frame: CGRect.init(x: 0, y: 0, width: kScreenWidth, height: 0))
         tableView.delegate = self
         tableView.dataSource = self
-        //tableView.separatorStyle = .none
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "UITableViewCell")
+        tableView.separatorStyle = .none
+        tableView.register(TagTableViewCell.self, forCellReuseIdentifier: "TagTableViewCell")
         return tableView
     }()
 
@@ -154,14 +160,14 @@ public class DropDownMenuView: UIView,UITableViewDelegate,UITableViewDataSource,
         let tableView = UITableView.init(frame: CGRect.init(x: 0, y: 0, width: kScreenWidth, height: 0))
         tableView.delegate = self
         tableView.dataSource = self
-        //tableView.separatorStyle = .none
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "UITableViewCell")
+        tableView.separatorStyle = .none
+        tableView.register(TagTableViewCell.self, forCellReuseIdentifier: "TagTableViewCell")
         return tableView
     }()
 
    private lazy var collectionView: UICollectionView = {
          let layout = UICollectionViewFlowLayout()
-         layout.itemSize = CGSize.init(width: 72, height: 30)
+         layout.itemSize = CGSize.init(width: 75, height: 25)
          layout.scrollDirection = .vertical
          layout.sectionInset = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
          layout.minimumLineSpacing = 10
@@ -629,7 +635,7 @@ extension DropDownMenuView {
     }
 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "UITableViewCell", for: indexPath)
+        let cell:TagTableViewCell = tableView.dequeueReusableCell(withIdentifier: "TagTableViewCell", for: indexPath) as! TagTableViewCell
         var columnType: DMenuViewColumnType = .DMenuViewColumnTypeTableView
         guard let dataSource = dataSource else { return cell}
         if dataSource.columnTypeInMenu?(menu: self, column: currentSelectedMenudIndex) != nil {
@@ -642,22 +648,37 @@ extension DropDownMenuView {
         cell.textLabel?.highlightedTextColor = configuration.highlightedTextColor
         cell.textLabel?.textColor = configuration.textColor
         ///是否是双链表
-        let isHaveItem = !(columnType == .DMenuViewColumnTypeDoubleTableView || columnType == .DMenuViewColumnTypeLeftTableViewRightCollectionView)
+        let isHaveItem = (columnType == .DMenuViewColumnTypeDoubleTableView || columnType == .DMenuViewColumnTypeLeftTableViewRightCollectionView)
         if tableView == leftTableView {
             if indexPath.row == selectRowArray[currentSelectedMenudIndex] {
                cell.isHighlighted = true
-               cell.accessoryView = isHaveItem ? UIImageView.init(image: UIImage.init(named: "dui")) : nil
-               tableView.selectRow(at: indexPath, animated: true, scrollPosition: .middle)
+               cell.accessoryView = isHaveItem ? nil : UIImageView.init(image: UIImage.init(named: "dui"))
+               tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
             } else {
                cell.isHighlighted = false
                cell.accessoryView = nil
             }
             cell.textLabel?.text = dataSource.titleForRowAtIndexPath(menu: self, column: currentSelectedMenudIndex, row: indexPath.row).titleStr
+            let imgIcon = dataSource.titleForRowAtIndexPath(menu: self, column: currentSelectedMenudIndex, row: indexPath.row).imgIcon
+            if imgIcon?.isEmpty ?? true {
+                cell.imageView?.image = nil
+            } else {
+                cell.imageView?.image = UIImage.init(named: imgIcon ?? "")
+            }
+
+            let fileNum = dataSource.titleForRowAtIndexPath(menu: self, column: currentSelectedMenudIndex, row: indexPath.row).fileNum
+            if fileNum?.isEmpty ?? true {
+                cell.detailTextLabel?.text = nil
+            } else {
+                cell.detailTextLabel?.textColor = indexPath.row == selectRowArray[currentSelectedMenudIndex] ? configuration.highlightedTextColor : configuration.textColor;
+                cell.detailTextLabel?.font = configuration.cellTitleFont;
+                cell.detailTextLabel?.text = "\(fileNum ?? "")"
+            }
         } else {
             if indexPath.row == rightSelectRowArray[currentSelectedMenudIndex] {
                cell.isHighlighted = true
-               cell.accessoryView = isHaveItem ? UIImageView.init(image: UIImage.init(named: "dui")) : nil
-               tableView.selectRow(at: indexPath, animated: true, scrollPosition: .middle)
+               cell.accessoryView = isHaveItem ? nil : UIImageView.init(image: UIImage.init(named: "dui"))
+               tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
             } else {
                cell.isHighlighted = false
                cell.accessoryView = nil
@@ -668,7 +689,7 @@ extension DropDownMenuView {
     }
 
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.selectRow(at: indexPath, animated: true, scrollPosition: .middle)
+        tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
         let title = titleTextLayers[currentSelectedMenudIndex]
         if tableView == leftTableView {
             if selectRowArray[currentSelectedMenudIndex] != indexPath.row {
@@ -689,7 +710,6 @@ extension DropDownMenuView {
                     collectionView.reloadData()
                     _ = self.compareUpdateHeight()
                     self.delegate?.didSelectRowAtIndexPath?(menu: self, column: currentSelectedMenudIndex, leftRow: indexPath.row, rightRow: -1)
-
                 }
             } else {
                 self.animateIndicatorShapeLayer(indicator: indicatorsLayers[currentSelectedMenudIndex], forward: false) {
@@ -722,5 +742,59 @@ extension DropDownMenuView {
             }
         }
     }
+}
+
+// MARK: - UICollectionViewCell
+class TagCollectionViewCell: UICollectionViewCell {
+    var textLab = UILabel()
+    override init(frame: CGRect) {
+      super.init(frame: frame)
+      self.makeUI()
+    }
+
+    func makeUI() {
+        textLab = UILabel.init(frame: CGRect.init(x: 0, y: 0, width: self.frame.width, height: self.frame.height))
+        textLab.textAlignment = .center;
+        textLab.layer.cornerRadius = 5
+        textLab.layer.masksToBounds = true
+        //textLab.adjustsFontSizeToFitWidth = true
+        //textLab.minimumScaleFactor = 0.2;
+        self.addSubview(textLab)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+// MARK: - UITableViewCell
+class TagTableViewCell: UITableViewCell {
+    required init?(coder aDecoder:NSCoder) {
+       super.init(coder: aDecoder)
+    }
+
+    override init(style:UITableViewCell.CellStyle, reuseIdentifier:String?) {
+        super.init(style: .value1, reuseIdentifier: reuseIdentifier);
+    }
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.addLine()
+
+    }
+
+    override func setSelected(_ selected: Bool, animated: Bool) {
+       super.setSelected(selected, animated: animated)
+       // Configure the view for the selected state
+    }
+
+    func addLine() {
+       self.contentView.addSubview(line)
+    }
+    lazy var line: UIView = {
+        let line = UIView.init(frame: CGRect.init(x: 0, y: self.frame.size.height - 0.8, width: kScreenWidth , height: 0.8))
+        line.backgroundColor = UIColor.lightGray
+        return line
+    }()
+
 }
 

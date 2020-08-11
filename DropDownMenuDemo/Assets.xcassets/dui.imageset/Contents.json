@@ -5,12 +5,10 @@
       "scale" : "1x"
     },
     {
-      "filename" : "dui@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "dui@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

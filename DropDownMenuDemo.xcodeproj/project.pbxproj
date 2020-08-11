@@ -19,7 +19,12 @@
 		E66E5E6524D84E20001443B8 /* DMConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E66E5E6424D84E20001443B8 /* DMConfiguration.swift */; };
 		E66E5E6724D84E51001443B8 /* DropDownMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E66E5E6624D84E51001443B8 /* DropDownMenuView.swift */; };
 		E66E5E7624D96EEC001443B8 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = E66E5E7524D96EEC001443B8 /* Common.swift */; };
-		E675E4CE24E12FAF00594883 /* TagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E675E4CD24E12FAF00594883 /* TagCollectionViewCell.swift */; };
+		E675E4D924E27D4400594883 /* dui@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E675E4D724E27D4400594883 /* dui@2x.png */; };
+		E675E4DA24E27D4400594883 /* dui@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E675E4D824E27D4400594883 /* dui@3x.png */; };
+		E675E4E924E28F7800594883 /* 酒店.png in Resources */ = {isa = PBXBuildFile; fileRef = E675E4E524E28F7800594883 /* 酒店.png */; };
+		E675E4EA24E28F7800594883 /* 地区.png in Resources */ = {isa = PBXBuildFile; fileRef = E675E4E624E28F7800594883 /* 地区.png */; };
+		E675E4EB24E28F7800594883 /* 排行.png in Resources */ = {isa = PBXBuildFile; fileRef = E675E4E724E28F7800594883 /* 排行.png */; };
+		E675E4EE24E28FA000594883 /* 电影.png in Resources */ = {isa = PBXBuildFile; fileRef = E675E4ED24E28FA000594883 /* 电影.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,7 +63,12 @@
 		E66E5E6424D84E20001443B8 /* DMConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMConfiguration.swift; sourceTree = "<group>"; };
 		E66E5E6624D84E51001443B8 /* DropDownMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDownMenuView.swift; sourceTree = "<group>"; };
 		E66E5E7524D96EEC001443B8 /* Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
-		E675E4CD24E12FAF00594883 /* TagCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollectionViewCell.swift; sourceTree = "<group>"; };
+		E675E4D724E27D4400594883 /* dui@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dui@2x.png"; sourceTree = "<group>"; };
+		E675E4D824E27D4400594883 /* dui@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dui@3x.png"; sourceTree = "<group>"; };
+		E675E4E524E28F7800594883 /* 酒店.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "酒店.png"; sourceTree = "<group>"; };
+		E675E4E624E28F7800594883 /* 地区.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "地区.png"; sourceTree = "<group>"; };
+		E675E4E724E28F7800594883 /* 排行.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "排行.png"; sourceTree = "<group>"; };
+		E675E4ED24E28FA000594883 /* 电影.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "电影.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,7 +119,6 @@
 		E64909D024D81B070015D372 /* DropDownMenuDemo */ = {
 			isa = PBXGroup;
 			children = (
-				E66E5E7424D96E87001443B8 /* Helples */,
 				E66E5E6324D84DAA001443B8 /* DropDownMenu */,
 				E64909D124D81B070015D372 /* AppDelegate.swift */,
 				E64909D324D81B070015D372 /* SceneDelegate.swift */,
@@ -144,19 +153,17 @@
 		E66E5E6324D84DAA001443B8 /* DropDownMenu */ = {
 			isa = PBXGroup;
 			children = (
+				E675E4E624E28F7800594883 /* 地区.png */,
+				E675E4E524E28F7800594883 /* 酒店.png */,
+				E675E4E724E28F7800594883 /* 排行.png */,
+				E675E4ED24E28FA000594883 /* 电影.png */,
+				E675E4D724E27D4400594883 /* dui@2x.png */,
+				E675E4D824E27D4400594883 /* dui@3x.png */,
+				E66E5E7524D96EEC001443B8 /* Common.swift */,
 				E66E5E6624D84E51001443B8 /* DropDownMenuView.swift */,
 				E66E5E6424D84E20001443B8 /* DMConfiguration.swift */,
-				E675E4CD24E12FAF00594883 /* TagCollectionViewCell.swift */,
 			);
 			path = DropDownMenu;
-			sourceTree = "<group>";
-		};
-		E66E5E7424D96E87001443B8 /* Helples */ = {
-			isa = PBXGroup;
-			children = (
-				E66E5E7524D96EEC001443B8 /* Common.swift */,
-			);
-			path = Helples;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -264,8 +271,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				E64909E124D81B0B0015D372 /* LaunchScreen.storyboard in Resources */,
+				E675E4DA24E27D4400594883 /* dui@3x.png in Resources */,
+				E675E4D924E27D4400594883 /* dui@2x.png in Resources */,
 				E64909DE24D81B0B0015D372 /* Assets.xcassets in Resources */,
+				E675E4E924E28F7800594883 /* 酒店.png in Resources */,
+				E675E4EA24E28F7800594883 /* 地区.png in Resources */,
+				E675E4EE24E28FA000594883 /* 电影.png in Resources */,
 				E64909D924D81B070015D372 /* Main.storyboard in Resources */,
+				E675E4EB24E28F7800594883 /* 排行.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -291,7 +304,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E66E5E7624D96EEC001443B8 /* Common.swift in Sources */,
-				E675E4CE24E12FAF00594883 /* TagCollectionViewCell.swift in Sources */,
 				E66E5E6724D84E51001443B8 /* DropDownMenuView.swift in Sources */,
 				E66E5E6524D84E20001443B8 /* DMConfiguration.swift in Sources */,
 				E64909DC24D81B070015D372 /* DropDownMenuDemo.xcdatamodeld in Sources */,
