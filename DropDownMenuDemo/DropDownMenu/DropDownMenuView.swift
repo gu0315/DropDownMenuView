@@ -757,8 +757,6 @@ class TagCollectionViewCell: UICollectionViewCell {
         textLab.textAlignment = .center;
         textLab.layer.cornerRadius = 5
         textLab.layer.masksToBounds = true
-        //textLab.adjustsFontSizeToFitWidth = true
-        //textLab.minimumScaleFactor = 0.2;
         self.addSubview(textLab)
     }
 
