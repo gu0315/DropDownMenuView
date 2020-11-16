@@ -41,26 +41,66 @@ public class DMRowData:NSObject {
 
 
 @objc public protocol DMenuViewDataSource: NSObjectProtocol {
-    ///返回有多少列
+    /// 菜单返回有多少列
+    /// - Parameter menu: 菜单
     @objc func numberOfColumnsInMenu(menu:DropDownMenuView) -> Int
-    ///左侧TableView每列有多少条数据
+
+    /// 选中左侧第几列显示多少行
+    /// - Parameters:
+    ///   - menu: 菜单
+    ///   - column: 第几列
+    /// - Returns: 返回的行数
     @objc func numberOfRowsInColumn(menu:DropDownMenuView, column: Int) -> Int
-    ///左侧TableView对应的每行的数据
+
+    /// 左侧TableView对应的每行的数据
+    /// - Parameters:
+    ///   - menu: 菜单
+    ///   - column: 第几列
+    ///   - row: 第几行
+    /// - Returns: 菜单第几列第几行的数据
     @objc func titleForRowAtIndexPath(menu:DropDownMenuView, column:Int, row: Int) -> DMRowData
-    ///右侧CollectionView或者TableView有多少条数据
+
+    /// 设置菜单第右column列,左侧TableView第row行的右侧CollectionView或者TableView有多少条数据
+    /// - Parameters:
+    ///   - menu: 菜单
+    ///   - column: 第几列
+    ///   - row: 左侧TableView第row行
+    /// - Returns: Data
     @objc optional func numberOfRightItemInMenu(menu:DropDownMenuView, column: Int, row: Int) -> Int
-    ///右侧CollectionView或者TableView对应的每行的数据
+    /// 设置菜单第右column列,左侧TableView第row行的右侧CollectionView或者TableView对应的每行的数据
+    /// - Parameters:
+    ///   - menu: 菜单
+    ///   - column: 第几列
+    ///   - row: 左侧TableView第row行
+    /// - Returns: Data
     @objc optional func titleForRightRowAtIndexPath (menu:DropDownMenuView, column: Int, leftRow: Int, rightRow: Int) -> DMRowData
-    ///返回每列的类型,默认只有一个tableView
+
+    /// 返回菜单第column列的类型,默认只有一个tableView
+    /// - Parameters:
+    ///   - menu: 菜单
+    ///   - column: 第几列
     @objc optional func columnTypeInMenu(menu:DropDownMenuView, column: Int) -> DMenuViewColumnType
-    ///左边tableView所占比例
+    
+    /// 菜单第column列左边tableView所占比例
+    /// - Parameters:
+    ///   - menu: 菜单
+    ///   - column: 第几列
     @objc optional func leftTableViewWidthScale(menu:DropDownMenuView, column: Int) -> CGFloat
 }
 
 @objc public protocol DMenuViewDelegate: NSObjectProtocol {
-    ///点击回掉
+    /// 点击回掉
+    /// - Parameters:
+    ///   - menu: 菜单
+    ///   - column: 第几列
+    ///   - leftRow: 左侧第多少行
+    ///   - rightRow: 右侧第多少行
     @objc optional func didSelectRowAtIndexPath(menu:DropDownMenuView, column: Int, leftRow: Int, rightRow: Int);
-    ///标签选择显示状态
+
+    /// 标签选择显示状态
+    /// - Parameters:
+    ///   - menu:  菜单
+    ///   - isShow: 是否显示
     @objc optional func menuIsShow(menu:DropDownMenuView, isShow: Bool)
 }
 
@@ -111,6 +151,7 @@ public class DropDownMenuView: UIView,UITableViewDelegate,UITableViewDataSource,
             }
             titleTextLayers.removeAll()
             selectRowArray.removeAll()
+            rightSelectRowArray.removeAll()
             let textCenterX:CGFloat = self.frame.size.width / CGFloat((configuration.numOfMenu * 2))
             let centerY = self.frame.height / 2
             for i in 0 ..< configuration.numOfMenu {
@@ -528,6 +569,20 @@ public class DropDownMenuView: UIView,UITableViewDelegate,UITableViewDataSource,
            }
         }
     }
+
+    ///刷新数据
+    func reloadData() {
+        self.animateBackGroundView(show: false) {
+            self.animateContentView(isShow: false) {
+                self.animateContentView(isShow: false) {
+                    self.show = false
+                    let id = self.dataSource
+                    self.dataSource = nil
+                    self.dataSource = id
+                }
+            }
+        }
+    }
 }
 
 // MARK: - UICollectionViewDataSource, UICollectionViewDelegate
@@ -630,6 +685,7 @@ extension DropDownMenuView {
         }
         return 0
     }
+
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return configuration.cellHeight
     }

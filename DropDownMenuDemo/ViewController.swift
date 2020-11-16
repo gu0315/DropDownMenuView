@@ -26,13 +26,18 @@ class ViewController: UIViewController,DMenuViewDelegate,DMenuViewDataSource {
       menu.delegate = self
       menu.dataSource = self
       self.view.addSubview(menu)
+
+      self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "重置", style: .plain, target: self, action: #selector(reloadMenu))
+
+
   }
 
-  func initData() {
-
+  @objc func reloadMenu() {
+      menu.reloadData()
   }
-    
-  // MARK: - DropdownMenuViewDelegate,DropdownMenuViewDataSource
+
+
+  // MARK: - DropdownMenuViewDelegate DropdownMenuViewDataSource
   func didSelectRowAtIndexPath(menu: DropDownMenuView, column: Int, leftRow: Int, rightRow: Int) {
       if (rightRow >= 0) {
            print("点击了 \(column) - \(leftRow) - \(rightRow) 项目")
@@ -41,6 +46,10 @@ class ViewController: UIViewController,DMenuViewDelegate,DMenuViewDataSource {
       }
   }
 
+    /// 展开关闭回掉
+    /// - Parameters:
+    ///   - menu: 菜单
+    ///   - isShow: 是否展开
   func menuIsShow(menu: DropDownMenuView, isShow: Bool) {
      if isShow {
         print("---------------展开-----------")
@@ -49,6 +58,11 @@ class ViewController: UIViewController,DMenuViewDelegate,DMenuViewDataSource {
      }
   }
 
+    /// 代理设置显示类型
+    /// - Parameters:
+    ///   - menu: 菜单
+    ///   - column:菜单的第几列
+    /// - Returns:菜单返回的类型
   func columnTypeInMenu(menu: DropDownMenuView, column: Int) -> DMenuViewColumnType {
       switch column {
       case 0:
@@ -64,6 +78,12 @@ class ViewController: UIViewController,DMenuViewDelegate,DMenuViewDataSource {
       }
   }
 
+    /// 代理设置选中左侧设置标题
+    /// - Parameters:
+    ///   - menu: 菜单
+    ///   - column: 列
+    ///   - row: 行
+    /// - Returns: Data
   func titleForRowAtIndexPath(menu: DropDownMenuView, column: Int, row: Int) -> DMRowData {
       switch column {
       case 0:
@@ -78,16 +98,27 @@ class ViewController: UIViewController,DMenuViewDelegate,DMenuViewDataSource {
         return DMRowData.init(titleStr: "")
       }
  }
+    /// 代理设置选中右侧设置标题
+    /// - Parameters:
+    ///   - menu: 菜单
+    ///   - column: 列
+    ///   - row: 行
+    /// - Returns: Data
+func titleForRightRowAtIndexPath(menu: DropDownMenuView, column: Int, leftRow: Int, rightRow: Int) -> DMRowData {
+    if column == 2 {
+       return DMRowData.init(titleStr: movices[leftRow].2[rightRow] )
+    } else if column == 3 {
+       return DMRowData.init(titleStr: areas[leftRow][rightRow])
+    }
+    return DMRowData.init(titleStr: "")
+}
 
-   func titleForRightRowAtIndexPath(menu: DropDownMenuView, column: Int, leftRow: Int, rightRow: Int) -> DMRowData {
-        if column == 2 {
-           return DMRowData.init(titleStr: movices[leftRow].2[rightRow] )
-        } else if column == 3 {
-           return DMRowData.init(titleStr: areas[leftRow][rightRow])
-        }
-        return DMRowData.init(titleStr: "")
-  }
 
+    /// 代理设置选中左侧TableView的宽度占比
+    /// - Parameters:
+    ///   - menu: 菜单
+    ///   - column: 列
+    /// - Returns: 比例
   func leftTableViewWidthScale(menu: DropDownMenuView, column: Int) -> CGFloat {
      switch column {
      case 0:
@@ -103,6 +134,12 @@ class ViewController: UIViewController,DMenuViewDelegate,DMenuViewDataSource {
      }
   }
 
+
+    /// 代理设置选中左侧第几列显示多少行
+    /// - Parameters:
+    ///   - menu: 菜单
+    ///   - column: 列
+    /// - Returns: 行数
   func numberOfRowsInColumn(menu: DropDownMenuView, column: Int) -> Int {
      switch column {
      case 0:
@@ -118,6 +155,13 @@ class ViewController: UIViewController,DMenuViewDelegate,DMenuViewDataSource {
      }
   }
 
+
+    /// 代理设置右侧TableView返回多少行
+    /// - Parameters:
+    ///   - menu: 菜单
+    ///   - column: 列
+    ///   - row: 行
+    /// - Returns: 行数
   func numberOfRightItemInMenu(menu: DropDownMenuView, column: Int, row: Int) -> Int {
      if column == 2 {
         if movices.count > row {
@@ -135,6 +179,10 @@ class ViewController: UIViewController,DMenuViewDelegate,DMenuViewDataSource {
     return 0
   }
 
+
+    /// 代理设置显示多少列
+    /// - Parameter menu: 菜单
+    /// - Returns: 返回多少列
   func numberOfColumnsInMenu(menu: DropDownMenuView) -> Int {
      return 4
   }
