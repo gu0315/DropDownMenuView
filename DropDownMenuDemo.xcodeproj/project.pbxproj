@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E61A474525E666030045F804 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = E61A474425E666030045F804 /* LICENSE */; };
 		E64909D224D81B070015D372 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64909D124D81B070015D372 /* AppDelegate.swift */; };
 		E64909D424D81B070015D372 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64909D324D81B070015D372 /* SceneDelegate.swift */; };
 		E64909D624D81B070015D372 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64909D524D81B070015D372 /* ViewController.swift */; };
@@ -45,6 +46,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E61A474425E666030045F804 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		E64909CE24D81B070015D372 /* DropDownMenuDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DropDownMenuDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E64909D124D81B070015D372 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E64909D324D81B070015D372 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 		E66E5E6324D84DAA001443B8 /* DropDownMenu */ = {
 			isa = PBXGroup;
 			children = (
+				E61A474425E666030045F804 /* LICENSE */,
 				E675E4E624E28F7800594883 /* 地区.png */,
 				E675E4E524E28F7800594883 /* 酒店.png */,
 				E675E4E724E28F7800594883 /* 排行.png */,
@@ -274,6 +277,7 @@
 				E675E4DA24E27D4400594883 /* dui@3x.png in Resources */,
 				E675E4D924E27D4400594883 /* dui@2x.png in Resources */,
 				E64909DE24D81B0B0015D372 /* Assets.xcassets in Resources */,
+				E61A474525E666030045F804 /* LICENSE in Resources */,
 				E675E4E924E28F7800594883 /* 酒店.png in Resources */,
 				E675E4EA24E28F7800594883 /* 地区.png in Resources */,
 				E675E4EE24E28FA000594883 /* 电影.png in Resources */,
@@ -482,8 +486,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 8SKK7T65BS;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = DropDownMenuDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -491,6 +495,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = DropDownMenuDemo.DropDownMenuDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -500,8 +505,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 8SKK7T65BS;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = DropDownMenuDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -509,6 +514,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = DropDownMenuDemo.DropDownMenuDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
