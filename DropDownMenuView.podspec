@@ -1,8 +1,8 @@
 Pod::Spec.new do |s|
-    s.name         = "DropDownMenuDemo"
+    s.name         = "DropDownMenuView"
     s.version      = "1.0.0"
     s.ios.deployment_target = '10.0'
-    s.summary      = "DropDownMenuDemo"
+    s.summary      = "DropDownMenuView"
     s.homepage     = "https://github.com/gu0315/DropDownMenuView"
     s.license              = { :type => "MIT", :file => "LICENSE" }
     s.author             = { "顾钱想" => "228383741@qq.com" }
